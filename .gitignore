@@ -4,6 +4,8 @@
 *.tfstate.backup
 *.tfplan
 
+terraform.tfstate
+
 .terragrunt-cache/
 .terraform/
 
