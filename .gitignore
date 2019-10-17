@@ -1,0 +1,10 @@
+.idea/
+
+*.tfstate/
+*.tfstate.backup
+*.tfplan
+
+.terragrunt-cache/
+.terraform/
+
+Pipfile*
