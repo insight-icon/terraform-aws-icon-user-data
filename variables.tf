@@ -1,15 +1,14 @@
 
 
-variable "consult_enabled" {
+variable "consul_enabled" {
   type = bool
-  default = true
+  default = false
 }
 variable "prometheus_enabled" {
   type = bool
-  default = true
+  default = false
 }
 
 variable "type" {
   type = string
-  default = "sentry"
 }
