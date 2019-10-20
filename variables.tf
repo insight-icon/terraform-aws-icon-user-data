@@ -12,3 +12,10 @@ variable "prometheus_enabled" {
 variable "type" {
   type = string
 }
+
+//------------ Sentry
+
+variable "prep_ip" {
+  type = string
+  default = ""
+}
