@@ -2,14 +2,14 @@
 data "template_file" "citizen" {
   template =<<-EOF
 su ubuntu
-docker-compose up -d
+docker-compose -f /home/ubuntu/docker-compose.yml up -d
 EOF
 }
 
 data "template_file" "prep" {
   template =<<-EOF
 su ubuntu
-docker-compose up -d
+docker-compose -f /home/ubuntu/docker-compose.yml up -d
 EOF
 }
 
