@@ -39,42 +39,44 @@ PRIVIP=$(wget -q -O - http://169.254.169.254/latest/meta-data/local-ipv4 || die 
 
 tee -a /home/ubuntu/host-node-exporter-payload.json << HOSTPAYLOADEND
 {
-  "ID": "host_$EC2_INSTANCE_ID",
-  "Name": "consul_node_exporter",
-  "Tags": "prep",
-  "Address": "$PRIVIP",
-  "Port": 9100,
-  "Check": {
-    "DeregisterCriticalServiceAfter": "60m",
-    "id": "prometheus-api",
-    "name": "HTTP on port 9100",
-    "http": "http://$PRIVIP:9100",
-    "interval": "10s",
-    "timeout": "1s"
+  "service": {
+    "ID": "host_$EC2_INSTANCE_ID",
+    "Name": "consul_node_exporter",
+    "Tags": ["prep"],
+    "Address": "$PRIVIP",
+    "Port": 9100,
+    "Check": {
+      "DeregisterCriticalServiceAfter": "60m",
+      "id": "prometheus-api",
+      "name": "HTTP on port 9100",
+      "http": "http://$PRIVIP:9100",
+      "interval": "10s",
+      "timeout": "1s"
+    }
   }
 }
 HOSTPAYLOADEND
 
 tee -a /home/ubuntu/docker-node-exporter-payload.json << DOCKERPAYLOADEND
 {
-  "ID": "docker_$EC2_INSTANCE_ID",
-  "Name": "consul_node_exporter",
-  "Tags": "prep",
-  "Address": "$PRIVIP",
-  "Port": 9323,
-  "Check": {
-    "DeregisterCriticalServiceAfter": "60m",
-    "id": "prometheus-api",
-    "name": "HTTP on port 9323",
-    "http": "http://$PRIVIP:9323/metrics",
-    "interval": "10s",
-    "timeout": "1s"
+  "service": {
+    "ID": "docker_$EC2_INSTANCE_ID",
+    "Name": "consul_node_exporter",
+    "Tags": ["prep"],
+    "Address": "$PRIVIP",
+    "Port": 9323,
+    "Check": {
+      "DeregisterCriticalServiceAfter": "60m",
+      "id": "prometheus-api",
+      "name": "HTTP on port 9323",
+      "http": "http://$PRIVIP:9323/metrics",
+      "interval": "10s",
+      "timeout": "1s"
+    }
   }
 }
 DOCKERPAYLOADEND
 
-consul agent register /home/ubuntu/host-node-exporter-payload.json
-consul agent register /home/ubuntu/docker-node-exporter-payload.json
 EOF
   vars = {}
 }

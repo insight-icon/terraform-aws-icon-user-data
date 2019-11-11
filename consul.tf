@@ -1,5 +1,6 @@
 data "template_file" "consul" {
   template = <<-EOF
+apt install -y zip
 curl --silent --remote-name https://releases.hashicorp.com/consul/1.6.1/consul_1.6.1_linux_amd64.zip
 unzip consul_1.6.1_linux_amd64.zip
 chown root:root consul
@@ -8,6 +9,7 @@ useradd --system --home /etc/consul.d --shell /bin/false consul
 mkdir --parents /opt/consul
 chown --recursive consul:consul /opt/consul
 PRIVIP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4/)
+
 tee -a /etc/systemd/system/consul.service << CONSULSVCEND
 [Unit]
 Requires=network-online.target
@@ -44,6 +46,9 @@ chmod 640 /etc/consul.d/consul.hcl
 
 systemctl enable consul
 systemctl start consul
+
+consul services register /home/ubuntu/host-node-exporter-payload.json
+consul services register /home/ubuntu/docker-node-exporter-payload.json
 
 EOF
 

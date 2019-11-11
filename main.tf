@@ -63,8 +63,8 @@ data "template_file" "user_data" {
 ${var.disable_ipv6 ? data.template_file.disable_ipv6.rendered : ""}
 ${var.consul_enabled ? data.template_file.consul.rendered : ""}
 ${var.consul_enabled && var.prometheus_enabled ? data.template_file.prometheus_consul.rendered : ""}
-${var.driver_type == "nitro" && local.ebs_attachment ? data.template_file.nitro.rendered :""}
-${var.driver_type == "standard" && local.ebs_attachment ? data.template_file.standard.rendered :""}
+${var.driver_type == "nitro" && local.ebs_attachment ? data.template_file.nitro.rendered : ""}
+${var.driver_type == "standard" && local.ebs_attachment ? data.template_file.standard.rendered : ""}
 ${var.type == "citizen" ? data.template_file.citizen.rendered : ""}
 ${var.type == "prep" ? data.template_file.prep.rendered : ""}
 ${var.type == "nat" ? data.template_file.nat.rendered : ""}

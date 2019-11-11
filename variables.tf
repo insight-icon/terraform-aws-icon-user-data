@@ -42,6 +42,6 @@ variable "nlb_dns" {
 
 variable "driver_type" {
   type = string
-  default = "standard"
+  default = ""
 }
 

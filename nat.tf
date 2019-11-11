@@ -1,12 +1,36 @@
 
 data "template_file" "nat" {
   template = <<-EOT
-#!/bin/sh
-iptables -t nat -A POSTROUTING -o eth0 -s ${var.vpc_cidr} -j MASQUERADE
-${var.nlb_dns == "" ? "" : "iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 9000 -j DNAT --to ${var.nlb_dns}:9000"}
-${var.nlb_dns == "" ? "" : "iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 7100 -j DNAT --to ${var.nlb_dns}:7100"}
+echo ${var.vpc_cidr} >> /testing.txt
+echo ${var.nlb_dns} >> /testing.txt
 EOT
 }
+
+//iptables -t nat -A POSTROUTING -o ens3 -s ${var.vpc_cidr} -j MASQUERADE
+//%{ if var.nlb_dns != "" }
+//for ip in `getent hosts ${var.nlb_dns} | awk '{ print $1 }'`
+//do
+//  iptables -t nat -A PREROUTING -i ens3 -p tcp --dport 9000 -j DNAT --to $ip:9000
+//  iptables -t nat -A PREROUTING -i ens3 -p tcp --dport 7100 -j DNAT --to $ip:7100
+//done
+//%{ endif }
+
+//ip route add 10.0.0.0/16 dev ens3
+//sysctl -w net.ipv4.ip_forward=1
+//iptables -t nat -A POSTROUTING ! -d 10.0.0.0/16 -o ens3 -j SNAT --to-source 1.2.3.4
+
+
+
+//for ip in `getent hosts nlb.us-east-1.icon.internal | awk '{ print $1 }'`
+//do
+//  sudo iptables -A PREROUTING -t nat -i ens3 -p tcp --dport 80 -j DNAT --to $ip:9000
+//  sudo iptables -A FORWARD -p tcp -d $ip --dport 9000 -j ACCEPT
+//  sudo iptables -A PREROUTING -t nat -i ens3 -p tcp --dport 80 -j DNAT --to $ip:7100
+//  sudo iptables -A FORWARD -p tcp -d $ip --dport 7100 -j ACCEPT
+//done
+//sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 9000 -j DNAT --to $ip:9000
+//sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 7100 -j DNAT --to $ip:7100
+
 
 //data "template_file" "nat" {
 //  template = <<-EOT
