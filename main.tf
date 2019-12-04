@@ -1,3 +1,5 @@
+data "aws_region" "this" {}
+
 locals {
   ebs_attachment = contains(["citizen", "prep"], var.type)
 }

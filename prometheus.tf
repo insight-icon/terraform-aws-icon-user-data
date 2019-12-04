@@ -42,7 +42,7 @@ tee -a /home/ubuntu/host-node-exporter-payload.json << HOSTPAYLOADEND
   "service": {
     "ID": "host_$EC2_INSTANCE_ID",
     "Name": "consul_node_exporter",
-    "Tags": ["prep"],
+    "Tags": ["${var.node_tags}"],
     "Address": "$PRIVIP",
     "Port": 9100,
     "Check": {
@@ -62,7 +62,7 @@ tee -a /home/ubuntu/docker-node-exporter-payload.json << DOCKERPAYLOADEND
   "service": {
     "ID": "docker_$EC2_INSTANCE_ID",
     "Name": "consul_node_exporter",
-    "Tags": ["prep"],
+    "Tags": ["${var.node_tags}"],
     "Address": "$PRIVIP",
     "Port": 9323,
     "Check": {

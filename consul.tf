@@ -34,7 +34,7 @@ mkdir --parents /etc/consul.d
 tee -a /etc/consul.d/consul.hcl << CONSULHCLEND
 {
 "bind_addr": "$PRIVIP",
-"datacenter": "us-east-1",
+"datacenter": "${data.aws_region.this.name}",
 "data_dir": "/opt/consul",
 "server": false
 "retry_join": ["provider=aws tag_key=consul-servers tag_value=auto-join addr_type=private_v4"]
