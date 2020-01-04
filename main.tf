@@ -7,11 +7,11 @@ locals {
 data "template_file" "nitro" {
   template =<<-EOF
 apt-get upgrade -y linux-aws
-file -s /dev/nvme0n1
+file -s /dev/nvme1n1
 mkdir /data
 chown -R ubuntu:ubuntu /data
-mkfs -t xfs /dev/nvme0n1
-mount /dev/nvme0n1 /data
+mkfs -t xfs /dev/nvme1n1
+mount /dev/nvme1n1 /data
 EOF
 }
 
