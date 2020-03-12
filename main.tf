@@ -1,7 +1,7 @@
 //data "aws_region" "this" {}
 
 locals {
-  ebs_attachment = contains(["citizen", "prep"], var.type)
+  ebs_attachment = contains(["citizen", "prep"], var.type) && ! var.instance_store_enabled
 }
 
 data "template_file" "nitro" {
@@ -21,6 +21,13 @@ mkdir /data
 chown -R ubuntu:ubuntu /data/
 mkfs.ext4 /dev/xvdf
 mount /dev/xvdf /data
+EOF
+}
+data "template_file" "install_ssm" {
+  template = <<-EOF
+# Install Amazon SSM Agent
+sudo snap install amazon-ssm-agent --classic
+sudo snap start amazon-ssm-agent
 EOF
 }
 

@@ -1,7 +1,6 @@
 
 module "defaults" {
   source = "../.."
-  type   = "prep"
 }
 
 output "user_data" {

@@ -37,22 +37,24 @@ No issue is creating limit on this module.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:-----:|
-| consul\_enabled | n/a | `bool` | `false` | no |
-| disable\_ipv6 | n/a | `bool` | `true` | no |
-| driver\_type | n/a | `string` | `""` | no |
+| consul\_enabled | Bool for consul | `bool` | `false` | no |
+| disable\_ipv6 | Bool for ipv6 | `bool` | `false` | no |
+| driver\_type | standard or nitro (nvme) drivers | `string` | `""` | no |
 | enable\_hourly\_cron\_updates | n/a | `string` | `"false"` | no |
+| instance\_store\_enabled | Bool to indicate attached storage | `bool` | `false` | no |
 | keys\_update\_frequency | n/a | `string` | `""` | no |
+| linux\_os | The OS flavor | `string` | `"debian"` | no |
 | log\_config\_bucket | n/a | `string` | `""` | no |
 | log\_config\_key | n/a | `string` | `""` | no |
 | nlb\_dns | n/a | `string` | `""` | no |
 | node\_tags | The tag to put into the node exporter for consul to pick up the tag of the instance and associate the proper metrics | `string` | `"prep"` | no |
-| prep\_ip | n/a | `string` | `""` | no |
-| prometheus\_enabled | n/a | `bool` | `false` | no |
+| prep\_ip | IP of prep | `string` | `""` | no |
+| prometheus\_enabled | Bool for prom | `bool` | `false` | no |
 | s3\_bucket\_name | n/a | `string` | `""` | no |
 | s3\_bucket\_uri | n/a | `string` | `""` | no |
 | ssh\_user | n/a | `string` | `"ubuntu"` | no |
-| type | n/a | `string` | n/a | yes |
-| vpc\_cidr | n/a | `string` | `""` | no |
+| type | The type of instance - prep, citizen, sentry | `string` | `"prep"` | no |
+| vpc\_cidr | #### NAT #### | `string` | `""` | no |
 
 ## Outputs
 
