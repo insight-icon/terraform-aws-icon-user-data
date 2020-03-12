@@ -5,7 +5,7 @@
 
 ## Features
 
-This module...
+This module outputs user data scripts for nodes on the ICON Blockchain. 
 
 ## Terraform Versions
 
@@ -16,7 +16,7 @@ For Terraform v0.12.0+
 ```
 module "this" {
     source = "github.com/robc-io/terraform-aws-icon-user-data "
-
+    type = "prep"
 }
 ```
 ## Examples
