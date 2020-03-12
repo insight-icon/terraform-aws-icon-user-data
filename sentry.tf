@@ -6,7 +6,7 @@ data "template_file" "nginx_sentry" {
 }
 
 data "template_file" "sentry" {
-  template =<<-EOT
+  template = <<-EOT
 cat<<"EOF" > /home/ubuntu/nginx/nginx.conf
 ${data.template_file.nginx_sentry.rendered}
 EOF

@@ -9,6 +9,7 @@ useradd --system --home /etc/consul.d --shell /bin/false consul
 mkdir --parents /opt/consul
 chown --recursive consul:consul /opt/consul
 PRIVIP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4/)
+REGION=$(curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | awk -F'"' '/\"region\"/ { print $4 }')
 
 tee -a /etc/systemd/system/consul.service << CONSULSVCEND
 [Unit]
@@ -30,11 +31,12 @@ SyslogIdentifier=consul
 WantedBy=multi-user.target
 CONSULSVCEND
 
+
 mkdir --parents /etc/consul.d
 tee -a /etc/consul.d/consul.hcl << CONSULHCLEND
 {
 "bind_addr": "$PRIVIP",
-"datacenter": "${data.aws_region.this.name}",
+"datacenter": "$REGION",
 "data_dir": "/opt/consul",
 "server": false
 "retry_join": ["provider=aws tag_key=consul-servers tag_value=auto-join addr_type=private_v4"]

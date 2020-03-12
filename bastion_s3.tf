@@ -110,13 +110,13 @@ if [ -n "$keys_update_frequency" ]; then
   ( crontab -u ${var.ssh_user} -l | grep -v "$croncmd" ; echo "$cronjob" ) | crontab -u ${var.ssh_user} -
 fi
 EOT
-//  vars = {
-//    s3_bucket_name = var.s3_bucket_name
-//    s3_bucket_uri = var.s3_bucket_uri
-//    ssh_user = var.ssh_user
-//    enable_hourly_cron_updates = var.enable_hourly_cron_updates
-//    keys_update_frequency = var.keys_update_frequency
-//  }
+  //  vars = {
+  //    s3_bucket_name = var.s3_bucket_name
+  //    s3_bucket_uri = var.s3_bucket_uri
+  //    ssh_user = var.ssh_user
+  //    enable_hourly_cron_updates = var.enable_hourly_cron_updates
+  //    keys_update_frequency = var.keys_update_frequency
+  //  }
 }
 
 

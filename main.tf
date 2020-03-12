@@ -1,11 +1,11 @@
-data "aws_region" "this" {}
+//data "aws_region" "this" {}
 
 locals {
   ebs_attachment = contains(["citizen", "prep"], var.type)
 }
 
 data "template_file" "nitro" {
-  template =<<-EOF
+  template = <<-EOF
 apt-get upgrade -y linux-aws
 file -s /dev/nvme1n1
 mkdir /data
@@ -16,7 +16,7 @@ EOF
 }
 
 data "template_file" "standard" {
-  template =<<-EOF
+  template = <<-EOF
 mkdir /data
 chown -R ubuntu:ubuntu /data/
 mkfs.ext4 /dev/xvdf
@@ -25,7 +25,7 @@ EOF
 }
 
 data "template_file" "disable_ipv6" {
-  template =<<-EOF
+  template = <<-EOF
 sudo sed -i -e 's/GRUB_CMDLINE_LINUX_DEFAULT="maybe-ubiquity"/GRUB_CMDLINE_LINUX_DEFAULT="ipv6.disable=1 maybe-ubiquity"/' /etc/default/grub
 sudo sed -i -e 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="ipv6.disable=1"/' /etc/default/grub
 sudo update-grub
@@ -33,29 +33,25 @@ EOF
 }
 
 data "template_file" "citizen" {
-  template =<<-EOF
+  template = <<-EOF
 su ubuntu
 docker-compose -f /home/ubuntu/docker-compose.yml up -d
 EOF
 }
 
 data "template_file" "prep" {
-  template =<<-EOF
+  template = <<-EOF
 echo "Nothing special, starting node with ansible"
 EOF
 }
 
-//su ubuntu
-//docker-compose -f /home/ubuntu/docker-compose.yml up -d
-
-
 data "template_file" "mount_ebs" {
-  template =<<-EOF
+  template = <<-EOF
 EOF
 }
 
 data "template_file" "mount_ebs_nvme" {
-  template =<<-EOF
+  template = <<-EOF
 EOF
 }
 

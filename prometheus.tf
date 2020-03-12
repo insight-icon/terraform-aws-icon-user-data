@@ -1,5 +1,5 @@
 data "template_file" "prometheus_consul" {
-  template =<<-EOF
+  template = <<-EOF
 ## Prometheus setup
 # Set node exporter version
 # Either pin to latest
@@ -78,5 +78,5 @@ tee -a /home/ubuntu/docker-node-exporter-payload.json << DOCKERPAYLOADEND
 DOCKERPAYLOADEND
 
 EOF
-  vars = {}
+  vars     = {}
 }
